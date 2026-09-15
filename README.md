@@ -5,9 +5,29 @@
 
 If your organization uses [Azure Active Directory](https://azure.microsoft.com) to provide SSO login to the AWS console, then there is no easy way to log in on the command line or to use the [AWS CLI](https://aws.amazon.com/cli/). This tool fixes that. It lets you use the normal Azure AD login (including MFA) from a command line to create a federated AWS session and places the temporary credentials in the proper place for the AWS CLI and SDKs.
 
+## About this fork
+
+This fork was created to restore native Apple Silicon support after `aws-azure-login` stopped launching on macOS 27 (Golden Gate). The upstream `3.6.5` source depends on Puppeteer 13.7, which downloads an Intel-only (`x86_64`) Chromium build on an Apple Silicon Mac. When Rosetta is unavailable, macOS cannot execute that browser and Node reports `spawn Unknown system error -86` (`Bad CPU type in executable`).
+
+Pointing the old Puppeteer version at a normal Google Chrome installation avoids the architecture error, but it also makes authentication dependent on that managed browser environment. In the environment that prompted this fork, Microsoft SSO automatically selected the primary organizational account instead of allowing a separate privileged account to sign in.
+
+This fork upgrades Puppeteer to 25.11, which downloads a native ARM64 Chrome for Testing browser and does not rely on the user's regular Chrome installation or profile. It also updates the project runtime requirement to Node.js 22.12 or later. The fix has been smoke-tested on Apple Silicon by completing an Azure SAML login and successfully running an authenticated `aws s3 ls` command.
+
 ## Installation
 
-Installation can be done in any of the following platform - Windows, Linux, Docker, Snap
+Installation can be done on Windows, macOS, Linux, Docker, and Snap.
+
+### macOS (Apple Silicon)
+
+Install [Node.js](https://nodejs.org/) v22.12 or later. This fork is not published as a separate npm package, so install it from the cloned source. The npm badge and registry-based installation commands elsewhere in this README still refer to the upstream package.
+
+```sh
+git clone https://github.com/smcqueen2/aws-azure-login.git
+cd aws-azure-login
+npm install
+npm run build
+npm install -g .
+```
 
 ### Windows
 
