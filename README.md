@@ -1,7 +1,7 @@
-[![view on npm](http://img.shields.io/npm/v/aws-azure-login.svg)](https://www.npmjs.org/package/aws-azure-login)
-[![npm module downloads per month](http://img.shields.io/npm/dm/aws-azure-login.svg)](https://www.npmjs.org/package/aws-azure-login)
+[![view on npm](https://img.shields.io/npm/v/%40smcqueen2%2Faws-azure-login-apple-silicon.svg)](https://www.npmjs.org/package/@smcqueen2/aws-azure-login-apple-silicon)
+[![npm module downloads per month](https://img.shields.io/npm/dm/%40smcqueen2%2Faws-azure-login-apple-silicon.svg)](https://www.npmjs.org/package/@smcqueen2/aws-azure-login-apple-silicon)
 
-# aws-azure-login
+# aws-azure-login (Apple Silicon fork)
 
 If your organization uses [Azure Active Directory](https://azure.microsoft.com) to provide SSO login to the AWS console, then there is no easy way to log in on the command line or to use the [AWS CLI](https://aws.amazon.com/cli/). This tool fixes that. It lets you use the normal Azure AD login (including MFA) from a command line to create a federated AWS session and places the temporary credentials in the proper place for the AWS CLI and SDKs.
 
@@ -13,41 +13,50 @@ Pointing the old Puppeteer version at a normal Google Chrome installation avoids
 
 This fork upgrades Puppeteer to 25.11, which downloads a native ARM64 Chrome for Testing browser and does not rely on the user's regular Chrome installation or profile. It also updates the project runtime requirement to Node.js 22.12 or later. The fix has been smoke-tested on Apple Silicon by completing an Azure SAML login and successfully running an authenticated `aws s3 ls` command.
 
+This fork is published to npm as `@smcqueen2/aws-azure-login-apple-silicon`.
+
 ## Installation
 
-Installation can be done on Windows, macOS, Linux, Docker, and Snap.
+The supported installation path for this fork is the published npm package:
+
+```sh
+npm install -g @smcqueen2/aws-azure-login-apple-silicon
+```
+
+This works on macOS, Windows, and Linux.
+
+After installation, run either command name:
+
+- `aws-azure-login` (drop-in compatibility)
+- `aws-azure-login-apple-silicon` (explicit fork command)
 
 ### macOS (Apple Silicon)
 
-Install [Node.js](https://nodejs.org/) v22.12 or later. This fork is not published as a separate npm package, so install it from the cloned source. The npm badge and registry-based installation commands elsewhere in this README still refer to the upstream package.
+Install [Node.js](https://nodejs.org/) v22.12 or later and then install the fork package globally:
 
 ```sh
-git clone https://github.com/smcqueen2/aws-azure-login.git
-cd aws-azure-login
-npm install
-npm run build
-npm install -g .
+npm install -g @smcqueen2/aws-azure-login-apple-silicon
 ```
 
 ### Windows
 
-Install [Node.js](https://nodejs.org/) v12 or higher. Then install aws-azure-login with npm:
+Install [Node.js](https://nodejs.org/) v22.12 or higher. Then install the fork package with npm:
 
-    npm install -g aws-azure-login
+    npm install -g @smcqueen2/aws-azure-login-apple-silicon
 
-You may need to install puppeteer dependency, if you're getting missing chrome or chromium message
+You may need to install Puppeteer dependency if you're getting a missing Chrome or Chromium message:
 
-    node <node_modules_dir>/aws-azure-login/node_modules/puppeteer/install.js
+    node <global_node_modules_dir>/@smcqueen2/aws-azure-login-apple-silicon/node_modules/puppeteer/install.js
 
 ### Linux
 
-In Linux you can either install for all users or just the current user. In either case, you must first install [Node.js](https://nodejs.org/) v12 or higher and any [puppeteer dependencies](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch). Then follow the appropriate instructions.
+In Linux you can either install for all users or just the current user. In either case, you must first install [Node.js](https://nodejs.org/) v22.12 or higher and any [puppeteer dependencies](https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch). Then follow the appropriate instructions.
 
 #### Option A: Install for All Users
 
-Install aws-azure-login globally with npm:
+Install the fork package globally with npm:
 
-    sudo npm install -g aws-azure-login --unsafe-perm
+    sudo npm install -g @smcqueen2/aws-azure-login-apple-silicon --unsafe-perm
 
 Puppeteer doesn't install globally with execution permissions for all users so you'll need to modify them:
 
@@ -64,26 +73,21 @@ First configure npm to install global packages in [your home directory](https://
     echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.profile
     source ~/.profile
 
-Then install aws-azure-login:
+Then install the fork package:
 
-    npm install -g aws-azure-login
+    npm install -g @smcqueen2/aws-azure-login-apple-silicon
 
 ### Docker
 
-A Docker image has been built with aws-azure-login preinstalled. You simply need to run the command with a volume mounted to your AWS configuration directory.
+The upstream Docker image is published under `aws-azure-login/aws-azure-login`.
 
-    docker run --rm -it -v ~/.aws:/root/.aws aws-azure-login/aws-azure-login
-
-The Docker image is configured with an entrypoint so you can just feed any arguments in at the end.
-
-You can also put the docker-launch.sh script into your bin directory for the aws-azure-login command to function as usual:
-
-    sudo curl -o /usr/local/bin/aws-azure-login https://raw.githubusercontent.com/aws-azure-login/aws-azure-login/main/docker-launch.sh -L
-    sudo chmod o+x /usr/local/bin/aws-azure-login
-
-Now just run `aws-azure-login`.
+This fork currently publishes to npm only. To ensure you are using the forked Apple Silicon behavior, use the npm installation above.
 
 ### Snap
+
+The Snap package linked below is the upstream package.
+
+This fork currently publishes to npm only. To ensure you are using the forked Apple Silicon behavior, use the npm installation above.
 
 https://snapcraft.io/aws-azure-login
 
