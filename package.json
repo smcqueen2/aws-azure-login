@@ -1,23 +1,28 @@
 {
-  "name": "aws-azure-login",
-  "version": "3.6.5",
-  "description": "Use Azure AD SSO to log into the AWS CLI.",
+  "name": "@smcqueen2/aws-azure-login-apple-silicon",
+  "version": "3.6.6",
+  "description": "Apple Silicon-friendly aws-azure-login fork with native Chromium support.",
   "main": "index.js",
   "author": {
-    "name": "aws-azure-login devs",
-    "url": "https://github.com/aws-azure-login"
+    "name": "Stephen McQueen",
+    "url": "https://github.com/smcqueen2"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aws-azure-login/aws-azure-login.git"
+    "url": "git+https://github.com/smcqueen2/aws-azure-login.git"
   },
-  "bugs": "https://github.com/aws-azure-loginc/aws-azure-login/issues",
+  "bugs": "https://github.com/smcqueen2/aws-azure-login/issues",
+  "homepage": "https://github.com/smcqueen2/aws-azure-login#readme",
   "engines": {
     "node": ">=22.12.0"
   },
   "bin": {
-    "aws-azure-login": "lib/index.js"
+    "aws-azure-login": "lib/index.js",
+    "aws-azure-login-apple-silicon": "lib/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "start": "ts-node-dev src/index.ts",
@@ -26,7 +31,7 @@
     "eslint": "eslint . --ext .ts",
     "prettier:write": "prettier --write \"src/**/*.{ts,json}\"",
     "prettier:check": "prettier --check \"src/**/*.ts\"",
-    "test": "yarn eslint && yarn prettier:check"
+    "test": "npm run eslint && npm run prettier:check"
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.473.0",

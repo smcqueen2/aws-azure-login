@@ -14,9 +14,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - run: yarn install
-      - run: yarn test
-      - run: yarn build
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
           name: lib
@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
